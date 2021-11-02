@@ -29,6 +29,7 @@
                         <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                         <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
                         <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
                         <li class="nav-item"><a class="nav-link" href="https://github.com/rwbakerUMASS">GitHub</a></li>
                         <li class="nav-item"><a class="nav-link" href="https://www.linkedin.com/in/rwbaker16/">LinkedIn</a></li>
                     </ul>
@@ -57,7 +58,7 @@
                     <div class="col-lg-8 text-center">
                         <h2 class="text-white mt-0">About Me</h2>
                         <hr class="divider divider-light" />
-                        <p class="text-white-75 mb-4">Add text here</p>
+                        <p class="text-white-75 mb-4"><span class="text-white">Hi!</span> I am a third year student at the UMass Amherst College of Information and Computer Sciences. I am currently studying Machine Learning and Search Engines. I am interested in taking robotics in the future!</p>
                     </div>
                 </div>
             </div>
@@ -85,16 +86,40 @@
                         Software Design Lead
                     </h1>
                     <h3 class="text-muted">
-                        FIRST Robotics Team 1277<br><br>
+                        FIRST Robotics Competition Team 1277
+                        <a class="btn btn-primary" href="http://robotomies.com">Team Website</a>
                    </h3>
-                   <ul>
-                    <li>Led a team of peers to develop software to control robot</li>
+                   <p>
+                       FRC is a competition between High Schools across the world to build a industrial sized robot to compete in a competition. 
+                       Teams are given 6 weeks to design, build, and program a robot to accomplish a certain challenge given certain rules and 
+                       specifications. These challenges involve using the robot to manipulate objects in the playing field to score points, and 
+                       the year that I competed in involved climbing onto an elevated platform to score extra points.
+                    </p>
+                    <ul><h5 class="text-primary">During my time as a member of the team, I:</h5>
+                    <li>Led a team of peers to develop software for the robot
+                        <ul>
+                            <li>Autonomous control of robot subsystems</li>
+                            <li>Control of robot using direct user input</li>
+                            <li>Monitoring of robot systems to prevent failures such as brownouts</li>
+                            <li>Computer vision using a Raspberry Pi as a co-proccesor</li>
+                        </ul>
+                    </li>
                     <li>Used Gradle to build, test, and deploy software</li>
                     <li>Worked with electrical and hardware teams to integrate sensors and motor control</li>
-                    <li>Software allowed for autonomous driving and control with user input</li>
-                    <li>Runner-up in 2 competitions</li>
+                    <li>Runner-up in both competitions in 2019</li>
                     <li>Competed in the New England Regional Championship in 2019</li>
-                   </ul>
+                    </ul>
+                    <div class="img-thumbnail">
+                        <div class="row">
+                                <img class="img-pad" src="assets/Robotomies/face.jpg" style="width:50%">
+                                <img class="img-pad" src="assets/Robotomies/robot.jpg" style="width:50%">
+                        </div>
+                        <div class="row">
+                                <img class="img-pad" src="assets/Robotomies/champs.jpg" style="width:33.3%">
+                                <img class="img-pad" src="assets/Robotomies/flip.jpg" style="width:33.3%">
+                                <img class="img-pad" src="assets/Robotomies/ready.jpg" style="width:33.3%">
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -128,6 +153,29 @@
                    </h5>
                    <p>GPA: 3.7/4.0</p>
                    </ul>
+                </div>
+            </div>
+        </section>
+        <!-- Projects-->
+        <section class="page-section" id="projects">
+            <div class="container px-4 px-lg-5">
+                <h2 class="text-center mt-0">Projects</h2>
+                <hr class="divider" /><br>
+                <div class="row gx-4 gx-lg-5">
+                    <h1 class="text-primary">
+                        Audio Reactive RGB Lights
+                    </h1>
+                    <p class="text-black">
+                        I used an Arduino and MSGEQ7 IC to perform signal processing on an audio signal. Using the output from the processing, the Arduino performs a variety of animations on Ws2812b light strips.
+                    </p>
+                </div>
+                <div class="row gx-4 gx-lg-5">
+                    <h1 class="text-primary">
+                        MIT Coffee Can Radar
+                    </h1>
+                    <p class="text-black">
+                        Using a kit of materials provided by MIT's Lincoln Laboratories, I built a radar using coffee cans as antennas, and used an Arduino to transmit and process the singals from the recieving antenna.
+                    </p>
                 </div>
             </div>
         </section>

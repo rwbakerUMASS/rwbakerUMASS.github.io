@@ -558,7 +558,6 @@ progress {
     font-size: 2.5rem;
   }
 }
-
 .list-unstyled {
   padding-left: 0;
   list-style: none;
@@ -608,6 +607,14 @@ progress {
   padding: 0.25rem;
   background-color: #fff;
   border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  max-width: 100%;
+  height: auto;
+}
+
+.img-pad {
+  padding: 0.25rem;
+  background-color: #ffff;
   border-radius: 0.25rem;
   max-width: 100%;
   height: auto;

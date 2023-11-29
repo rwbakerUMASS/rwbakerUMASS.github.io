@@ -1,5 +1,3 @@
-ext.config.js
-
 /**
  * @type {import('next').NextConfig}
  */

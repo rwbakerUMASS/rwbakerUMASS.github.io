@@ -2,8 +2,6 @@ import Navbar from './components/navigation/navbar'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import bg_img from '../public/img/CS-Building2.jpg'
-import Typical from 'react-typical';
 
 const inter = Inter({ subsets: ['latin'] })
 

@@ -23,7 +23,7 @@ export default function Home() {
           <Navbar />
           <div className='h-screen w-screen flex items-center'>
             <div className='block px-10'>
-              <p className='inline-block text-6xl font-bold text-center bg-white bg-opacity-25'>Hi, I'm Ryan</p>
+              <p className='inline-block text-6xl font-bold text-center bg-white bg-opacity-25'>Hi, I&apos;m Ryan</p>
               <div className='w-screen'/>
               <Typewriter
               options={{

@@ -5,7 +5,7 @@ import next_img from 'public/next.svg'
 import vercel_logo from 'public/vercel.svg'
 import Navbar from './components/navigation/navbar'
 import bg_img from '../public/img/CS-Building2.jpg'
-import Typical from 'react-typical';
+import Typewriter from 'typewriter-effect'
 
 export default function Home() {
   return (
@@ -25,16 +25,23 @@ export default function Home() {
             <div className='block px-10'>
               <p className='inline-block text-6xl font-bold text-center bg-white bg-opacity-25'>Hi, I'm Ryan</p>
               <div className='w-screen'/>
-              <Typical className='inline-block text-5xl text-center bg-white bg-opacity-25' steps={[
-                    'Master\'s Student @ UMass',
-                    2000,
-                    'ML Enthusiast',
-                    2000,
-                    'Sylvan Enthusiast',
-                    2000,
-                  ]}
-                  wrapper="p"
-                  loop={Infinity}/>
+              <Typewriter
+              options={{
+                autoStart: true,
+                loop: true,
+                wrapperClassName: 'inline-block text-5xl bg-white bg-opacity-25',
+                cursorClassName: 'text-5xl'
+              }}
+              onInit={(typewriter) => {
+                typewriter.typeString('Master\'s Student @ UMass')
+                .pauseFor(1000)
+                .deleteAll()
+                .typeString('ML Enthusiast')
+                .pauseFor(1000)
+                .deleteAll()
+                .typeString('Sylvan Enthusiast')
+                .deleteAll().start()
+              }}/>
             </div>
           </div>
         </div>

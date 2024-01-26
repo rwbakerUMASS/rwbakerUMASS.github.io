@@ -14,4 +14,4 @@ const nextConfig = {
   // distDir: 'dist',
 }
  
-module.exports = require('next-images')
+module.exports = nextConfig

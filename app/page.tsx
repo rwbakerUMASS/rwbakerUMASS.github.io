@@ -2,10 +2,13 @@
 
 import Navbar from './components/navigation/navbar'
 import bg_img from '../public/img/CS-Building2.jpg'
+import me_img from '../public/img/Ryan.jpg'
 import Typewriter from 'typewriter-effect'
 import React, { useEffect, useState } from "react";
+import Image from 'next/image';
 
 export default function Home() {
+  console.log(`url(${me_img.src})`)
   const [show, setShow] = useState(0)
   const controlOpac = () => {
     setShow((window.scrollY/window.innerHeight) + 0.2)
@@ -56,8 +59,25 @@ export default function Home() {
           </div>
         </div>
         <div style={{opacity : show, backgroundColor: 'rgb(200,200,200)'}}>
-          <section className='pt-10 text-4xl h-lvh' id='about'>
-            ABOUT ME
+          <section className='pt-10 text-lg h-lvh' id='about'>
+            <div className='p-20 text-4xl font-bold'>
+              ABOUT ME
+            </div>
+            <div className='grid grid-cols-2 px-20'>
+              <div>
+                I am a recent Master's graduate from the UMass Amherst College of Information and Computer Sciences.
+                Throughout my education, I have gained exposure to a large variety of fields of computer science, but I am mainly interested in the fields of machine/reinforcement learning, data science, and robotics
+                I have 4 years of intern experience in systems engineering and software engineering, as well as being the software lead of my high school robotics team.
+              </div>
+              <div className='w-full flex justify-center'>
+                <Image
+                  src={me_img.src}
+                  width={250}
+                  height={250}
+                  alt="Me"
+                />
+              </div>
+            </div>
             {/* <div className='grid grid-cols-1'>
                   <div className='place-self-start rounded-2xl w-3/5 min-h-96 bg-black bg-opacity-25'></div>
                   <div className='place-self-end w-3/5 h-96 bg-black'></div>

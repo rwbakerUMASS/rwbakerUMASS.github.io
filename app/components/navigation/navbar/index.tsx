@@ -30,7 +30,7 @@ const Navbar = () => {
             <div className="text-white text-3xl font-extrabold px-8">Ryan Baker</div>
             <ul className="hidden md:flex gap-x-6 text-white pr-8">
               <li>
-                <Link href="/about">
+                <Link href="#about">
                   <p>About</p>
                 </Link>
               </li>

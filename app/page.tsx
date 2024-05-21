@@ -1,15 +1,24 @@
 "use client"
 
-import Image from 'next/image'
-import next_img from 'public/next.svg'
-import vercel_logo from 'public/vercel.svg'
 import Navbar from './components/navigation/navbar'
 import bg_img from '../public/img/CS-Building2.jpg'
 import Typewriter from 'typewriter-effect'
+import React, { useEffect, useState } from "react";
 
 export default function Home() {
+  const [show, setShow] = useState(0)
+  const controlOpac = () => {
+    setShow((window.scrollY/window.innerHeight) + 0.2)
+  }
+
+  useEffect(() => {
+      window.addEventListener('scroll', controlOpac)
+      return () => {
+          window.removeEventListener('scroll', controlOpac)
+      }
+  }, [])
   return (
-    <main>
+    <main className='h-full'>
       <div style={{
           backgroundImage: `url(${bg_img.src})`,
           backgroundPosition: "center",
@@ -17,13 +26,14 @@ export default function Home() {
           backgroundAttachment: "fixed",
           backgroundSize: "cover",
           overflowX: "hidden",
-          height: "100vh",
+          overflowY: "hidden",
           zIndex:"0"
-        }}>
-          <Navbar />
+      }}>
+        <Navbar />
+        <div style={{backgroundColor: `rgba(200, 200, 200, ${show})`}}>
           <div className='h-screen w-screen flex items-center'>
             <div className='block px-10'>
-              <p className='inline-block text-6xl font-bold text-center bg-white bg-opacity-25'>Hi, I&apos;m Ryan</p>
+              <p className='inline-block text-6xl sticky font-bold text-center bg-white bg-opacity-25'>Hi, I&apos;m Ryan</p>
               <div className='w-screen'/>
               <Typewriter
               options={{
@@ -33,7 +43,7 @@ export default function Home() {
                 cursorClassName: 'text-5xl'
               }}
               onInit={(typewriter) => {
-                typewriter.typeString('Master\'s Student @ UMass')
+                typewriter.typeString('Software Engineer')
                 .pauseFor(1000)
                 .deleteAll()
                 .typeString('ML Enthusiast')
@@ -45,15 +55,29 @@ export default function Home() {
             </div>
           </div>
         </div>
-      <section className='pt-32' id='education'>
-        EDUCATION
-      </section>
-      <section className='pt-32' id='experience'>
-        EXPERIENCE
-      </section>
-      <section className='pt-32' id='projects'>
-        PROJECTS
-      </section>
+        <div style={{opacity : show, backgroundColor: 'rgb(200,200,200)'}}>
+          <section className='pt-10 text-4xl h-lvh' id='about'>
+            ABOUT ME
+            {/* <div className='grid grid-cols-1'>
+                  <div className='place-self-start rounded-2xl w-3/5 min-h-96 bg-black bg-opacity-25'></div>
+                  <div className='place-self-end w-3/5 h-96 bg-black'></div>
+                  <div className='place-self-start w-3/5 h-96 bg-black'></div>
+                  <div className='place-self-end w-3/5 h-96 bg-black'></div>
+                  <div className='place-self-start w-3/5 h-96 bg-black'></div>
+                  <div className='place-self-end w-3/5 h-96 bg-black'></div>
+            </div> */}
+          </section>
+          <section className='pt-10 text-4xl' id='education'>
+            EDUCATION
+          </section>
+          <section className='pt-10 text-4xl' id='experience'>
+            EXPERIENCE
+          </section>
+          <section className='pt-10 text-4xl' id='projects'>
+            PROJECTS
+          </section>
+        </div>
+      </div>
     </main>
   )
 }

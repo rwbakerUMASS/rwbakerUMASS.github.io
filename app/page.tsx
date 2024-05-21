@@ -65,7 +65,7 @@ export default function Home() {
             </div>
             <div className='grid grid-cols-2 px-20'>
               <div className='content-center'>
-                I am a recent Master's graduate from the UMass Amherst College of Information and Computer Sciences.
+                I am a recent Master&apos;s graduate from the UMass Amherst College of Information and Computer Sciences.
                 Throughout my education, I have gained exposure to a large variety of fields of computer science, but I am mainly interested in the fields of machine/reinforcement learning, data science, and robotics
                 I have 4 years of intern experience in systems engineering and software engineering, as well as being the software lead of my high school robotics team.
               </div>

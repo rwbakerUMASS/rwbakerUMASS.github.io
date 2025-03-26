@@ -18,10 +18,18 @@ const About: React.FC<AboutPageProps> = ({ bodyText, bodyTextColor, imgPath}) =>
     setShow((window.scrollY/(0.75 * window.innerHeight)) + 0)
   }
 
+  const [size, setSize] = useState({width: 0, height: 0})
+  const handleResize = () => {
+    setSize({width: window.innerWidth, height: window.innerHeight})
+  }
+
   useEffect(() => {
       window.addEventListener('scroll', controlOpac)
+      window.addEventListener('resize', handleResize)
+      handleResize();
       return () => {
           window.removeEventListener('scroll', controlOpac)
+          window.removeEventListener('resize', handleResize)
       }
   }, [])
   return (
@@ -34,10 +42,10 @@ const About: React.FC<AboutPageProps> = ({ bodyText, bodyTextColor, imgPath}) =>
             <div className='w-full flex justify-center'>
               <Image
                 src={me_img.src}
-                width={350}
-                height={250}
+                width={size.width * 0.3}
+                height={size.height * 0.3}
                 alt="Me"
-                className='rounded-xl border-2 border-black'
+                className='rounded-xl border-2 border-black aspect-auto w-1/2'
               />
             </div>
             <div className={`content-center ${bodyTextColor}`}>{bodyText}</div>

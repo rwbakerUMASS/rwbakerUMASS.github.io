@@ -4,10 +4,11 @@ import Navbar from './components/navigation/navbar'
 import WelcomePage from './components/welcome-page'
 import About from './components/about-me'
 import Education from './components/education'
+import Project from './components/projects'
 import bg_img from '../public/assets/img/CS-Building2.jpg'
 import React, { useEffect, useState } from "react";
 import { useRouter } from 'next/router';
-import { welcomePage, aboutMe, education } from '../public/config'
+import { welcomePage, aboutMe, education, projects } from '../public/config'
 import { EducationEntryProps } from './components/education-entry'
 
 export default function Home() {
@@ -42,7 +43,7 @@ export default function Home() {
           typewriterMessages={welcomePage.typeWriterText.messages}
         />
         
-        <div className='bg-gradient-to-b from-neutral-300  to-orange-300' style={{opacity : show}}>
+        <div className='bg-gradient-to-b from-neutral-300 via-orange-300 to-orange-500' style={{opacity : show}}>
           <About
             bodyText={aboutMe.bodyText.text}
             bodyTextColor={aboutMe.bodyText.color}
@@ -50,14 +51,14 @@ export default function Home() {
           />
           <Education
             entries={education.entries}
-            style={education.colors}
+            style={education.colors }
           />
           <section className='pt-10 text-4xl' id='experience'>
             EXPERIENCE
           </section>
-          <section className='pt-10 text-4xl' id='projects'>
-            PROJECTS
-          </section>
+          <Project 
+            entries={projects.entries}
+          />
         </div>
       </div>
     </main>

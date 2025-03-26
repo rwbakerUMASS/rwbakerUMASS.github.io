@@ -24,7 +24,7 @@ const Education: React.FC<EducationPageProps> = ({entries, style}) => {
         <div className='p-20 text-4xl flex justify-center w-full font-bold'>
           EDUCATION
         </div>
-        <div className='grid grid-cols-2 px-20'>
+        <div className='flex justify-center px-20'>
           {entries.map((entry, index) => {
             entry['key'] = index;
             return EducationEntry(entry);

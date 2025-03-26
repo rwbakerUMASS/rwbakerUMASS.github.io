@@ -16,7 +16,8 @@ interface EducationEntryProps {
 
 const EducationEntry: React.FC<EducationEntryProps> = ({ title, university, time, gpa, key}) => {
   return (
-      <div className='content-center text-center text-2xl border-black w-full' key={key}>
+      <div className='content-center text-center px-10 text-2xl' key={key}>
+        <div className="border-black border-2 rounded-xl w-auto w-fit p-3 shadow-xl bg-white text-black bg-opacity-30">
         {title}
         <div>
           {university}
@@ -26,6 +27,7 @@ const EducationEntry: React.FC<EducationEntryProps> = ({ title, university, time
         </div>
         <div>
           {`GPA: ${gpa}`}
+        </div>
         </div>
       </div>
   );

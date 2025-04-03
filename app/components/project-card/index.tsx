@@ -25,7 +25,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({title, description, github}) =
   //const [total, setTotal] = useState(0);
   const fetchLanguages = () => {
     if (github) {
-      const path = 'http://api.github.com/repos/' + github.owner + '/' + github.repo + '/languages';
+      const path = 'https://api.github.com/repos/' + github.owner + '/' + github.repo + '/languages';
       console.log(path)
       fetch(path).then((resp) => {
         resp.json().then((langs) => {

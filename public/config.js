@@ -92,11 +92,6 @@ const projects = {
                 repo: 'rwbakerUMASS.github.io',
                 githubLink: 'https://github.com/rwbakerUMASS/rwbakerUMASS.github.io'
             }
-        },
-        {
-            title: 'BOWLING!',
-            description: 'This is a placeholder',
-            github: null
         }
     ]
 }

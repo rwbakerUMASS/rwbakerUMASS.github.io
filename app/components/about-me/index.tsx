@@ -34,22 +34,22 @@ const About: React.FC<AboutPageProps> = ({ bodyText, bodyTextColor, imgPath}) =>
   }, [])
   return (
     <>
-      <section className='pt-10 text-lg' id='about'>
-          <div className='p-20 text-4xl flex justify-center w-full font-bold'>
-            ABOUT ME
+      <section className="pt-10 text-lg" id="about">
+        <div className="p-5 md:p-20 text-2xl md:text-4xl flex justify-center w-full font-bold">
+          ABOUT ME
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 px-5 md:px-20 gap-5">
+          <div className="w-full flex justify-center">
+            <Image
+              src={me_img.src}
+              width={300} // Set a fixed value for better mobile scaling
+              height={300}
+              alt="Me"
+              className="rounded-xl border-2 border-black aspect-auto w-full max-w-xs sm:max-w-sm md:max-w-md"
+            />
           </div>
-          <div className='grid grid-cols-2 px-20'>
-            <div className='w-full flex justify-center'>
-              <Image
-                src={me_img.src}
-                width={size.width * 0.3}
-                height={size.height * 0.3}
-                alt="Me"
-                className='rounded-xl border-2 border-black aspect-auto w-1/2'
-              />
-            </div>
-            <div className={`content-center ${bodyTextColor}`}>{bodyText}</div>
-          </div>
+          <div className={`content-center ${bodyTextColor}`}>{bodyText}</div>
+        </div>
         </section>
     </>
   );

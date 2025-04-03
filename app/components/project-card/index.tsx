@@ -40,6 +40,25 @@ const ProjectCard: React.FC<ProjectCardProps> = ({title, description, github}) =
     return percent > 0 ? percent + '%' : '<1%'
   }
 
+  const getLanguageColor = (language: string) => {
+    const colors: Record<string, string> = {
+      JavaScript: "#F7DF1E",
+      Python: "#3572A5",
+      TypeScript: "#3178C6",
+      C: "#555555",
+      "C++": "#f34b7d",
+      "C#": "#178600",
+      Java: "#b07219",
+      HTML: "#e34c26",
+      CSS: "#563d7c",
+      Go: "#00ADD8",
+      Rust: "#dea584",
+      default: "#999999"
+    };
+  
+    return colors[language] || colors.default;
+  };
+
   const total = Object.values(languages).reduce((a: number,x: number) => a + x,0);
 
   useEffect(() => {
@@ -56,9 +75,29 @@ const ProjectCard: React.FC<ProjectCardProps> = ({title, description, github}) =
           {description}
         </Card.Text>
         {github ? <GitHubButton url={github.githubLink}/> : null}
-        {github ? Object.keys(languages).map((lang) => {
-          return <div key={lang} className="text-black text-s ml-5">{lang}: {getPercent(lang)}</div>
-        }): null}
+        <div className="mt-4">
+          <h3 className="text-black text-sm font-semibold mb-2">Languages Used:</h3>
+          <div className="w-full bg-gray-300 h-2 rounded-full overflow-hidden">
+          <div className="flex">
+          {github ? Object.keys(languages).map((lang) => {
+            return (
+                      <div
+                        key={lang}
+                        className={`h-2`}
+                        style={{ width: `${getPercent(lang)}`, backgroundColor: getLanguageColor(lang) }}
+                      />
+                    )}): null}
+              </div>
+            </div>
+            <div className="flex flex-wrap mt-2 gap-2">
+              {github ? Object.keys(languages).map((lang) => {
+                return (
+                <span key={lang} className="text-xs bg-gray-100 text-black px-2 py-1 rounded-md">
+                  {lang}: {getPercent(lang)}
+                </span>
+              )}): null}
+            </div>
+          </div>
         <OtherButton url={''}/>
       </Card.Body>
     </Card>
@@ -72,7 +111,7 @@ interface CardButtonsProps {
 const GitHubButton: React.FC<CardButtonsProps> = ({ url }) => {
   return (
     <div className="">
-      <a href={url} className="grid grid-cols-2 border-black w-1/2 border-2 rounded-xl text-black text-s p-2 ml-5">
+      <a href={url} className="flex items-center justify-center gap-2 border-black border-2 rounded-xl text-black text-md p-2 w-full sm:w-40">
         <Image
           src={ghIcon.src}
           width={50}
@@ -88,7 +127,7 @@ const GitHubButton: React.FC<CardButtonsProps> = ({ url }) => {
 const OtherButton: React.FC<CardButtonsProps> = ({ url }) => {
   return (
     <div className="mt-5">
-      <a href={url} className="border-black w-1/2 border-2 rounded-xl text-black text-s p-2 m-5">
+      <a href={url} className="border-black w-full md:w-1/2 border-2 rounded-xl text-black text-sm p-2 m-5">
         More Info
       </a>
     </div>

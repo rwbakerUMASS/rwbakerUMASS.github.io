@@ -16,6 +16,17 @@ const Navbar = () => {
       }
   }
 
+  const handleClick = (button: {internal: boolean, path: string}) => {
+    if (button.internal) {
+      const element = document.getElementById(button.path)
+      if (element) {
+        element.scrollIntoView({behavior: 'smooth'})
+      }
+    } else {
+     window.location.href = button.path; 
+    }
+  }
+
   useEffect(() => {
       window.addEventListener('scroll', controlNavbar)
       return () => {
@@ -27,9 +38,9 @@ const Navbar = () => {
       <div className={'z-50 w-full h-20 fixed top-0 transition duration-500 ease-in-out'} style={{background: show ? 'rgba(244, 98, 58, 0.9)' : 'rgba(244, 98, 58, 0)'}}>
         <div className="container mx-auto px-4 h-full">
           <div className="flex justify-between items-center h-full">
-            <div className="text-white text-3xl font-extrabold px-8" ><Link href="/">Ryan Baker</Link></div>
+            <div className="text-white text-3xl font-extrabold px-8" ><button onClick={() => handleClick({internal: true, path:'home'})}>Ryan Baker</button></div>
             <ul className="hidden md:flex space-x-6 text-white">
-              {navBar.menuItems.map((x) => {return <li key={x.name}><Link href={x.href}>{x.name}</Link></li>})}
+              {navBar.menuItems.map((x) => {return <li key={x.name}><button onClick={() => handleClick(x.button)}>{x.name}</button></li>})}
             </ul>
             <div className="md:hidden">
                 <button
@@ -68,12 +79,14 @@ const Navbar = () => {
           <div className="md:hidden w-full pb-4 transition duration-500 ease-in-out" style={{background: show ? 'rgba(244, 98, 58, 0.9)' : 'rgba(244, 98, 58, 0)'}}>
             <div className="flex flex-col px-4 space-y-4 text-white">
               {navBar.menuItems.map((x) => {
-                return <Link 
+                return <button 
                   key={x.name}
-                  href={x.href}
-                  onClick={() => setMenuOpen(!menuOpen)}>
+                  onClick={() => {
+                    setMenuOpen(false);
+                    handleClick(x.button)
+                    }}>
                     {x.name}
-                  </Link>
+                  </button>
                 })}
             </div>
           </div>:null}

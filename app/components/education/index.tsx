@@ -20,11 +20,11 @@ interface EducationPageProps {
 const Education: React.FC<EducationPageProps> = ({entries, style}) => {
   return (
     <>
-      <section className='pt-10 text-lg' id='education'>
-        <div className='p-20 text-4xl flex justify-center w-full font-bold'>
+      <section className='pt-10 text-lg scroll-mt-10' id='education'>
+        <div className='p-5 md:p-20 text-2xl md:text-4xl flex justify-center w-full font-bold'>
           EDUCATION
         </div>
-        <div className='flex justify-center px-20'>
+        <div className='justify-center grid grid-cols-1 md:grid-cols-2 gap-5 px-5 md:px-20 place-items-center'>
           {entries.map((entry, index) => {
             entry['key'] = index;
             return EducationEntry(entry);

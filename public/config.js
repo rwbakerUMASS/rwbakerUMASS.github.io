@@ -1,24 +1,41 @@
+import internal from "stream"
+
 const navBar = {
     menuItems: [
         {
             name: "About",
-            href: "#about"
+            button: {
+                internal: true,
+                path: "about"
+            }
         },
         {
             name: 'Education',
-            href: '#education'
+            button: {
+                internal: true,
+                path: "education"
+            }
         },
         {
             name: "Projects",
-            href: "#projects"
+            button: {
+                internal: true,
+                path: "projects"
+            }
         },
         {
             name: "GitHub",
-            href: "https://github.com/rwbakerUMASS"
+            button: {
+                internal: false,
+                path: "https://github.com/rwbakerUMASS"
+            }
         },
         {
             name: "LinkedIn",
-            href: "https://linkedin.com/in/rwbaker16"
+            button: {
+                internal: false,
+                path: "https://linkedin.com/in/rwbaker16"
+            }
         }
     ]
 }

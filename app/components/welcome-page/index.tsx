@@ -25,7 +25,7 @@ const WelcomePage: React.FC<WelcomePageProps> = ({ topTextColor, topMessage, typ
   }, [])
   return (
     <>
-    <div style={{backgroundColor: `rgba(212, 212, 212, ${show})`}}>
+    <div style={{backgroundColor: `rgba(212, 212, 212, ${show})`}} id='home'>
       <div className='h-screen w-screen flex items-center'>
         <div className='block px-10'>
           <p className={`inline-block text-6xl sticky font-bold ${topTextColor} text-center bg-white bg-opacity-25`}>{topMessage}</p>

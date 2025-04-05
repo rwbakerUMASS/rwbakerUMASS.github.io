@@ -34,7 +34,7 @@ const About: React.FC<AboutPageProps> = ({ bodyText, bodyTextColor, imgPath}) =>
   }, [])
   return (
     <>
-      <section className="pt-10 text-lg" id="about">
+      <section className="pt-10 text-lg scroll-mt-10" id="about">
         <div className="p-5 md:p-20 text-2xl md:text-4xl flex justify-center w-full font-bold">
           ABOUT ME
         </div>

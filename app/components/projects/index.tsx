@@ -13,7 +13,7 @@ interface ProjectProps {
 const Project: React.FC<ProjectProps> = ({ entries }) => {
   return (
     <>
-      <section className="pt-10 text-lg" id="projects">
+      <section className="pt-10 text-lg scroll-mt-10" id="projects">
         <div className="p-5 md:p-20 text-2xl md:text-4xl flex justify-center w-full font-bold">
           PROJECTS
         </div>

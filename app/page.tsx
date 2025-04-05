@@ -9,7 +9,6 @@ import bg_img from '../public/assets/img/CS-Building2.jpg'
 import React, { useEffect, useState } from "react";
 import { useRouter } from 'next/router';
 import { welcomePage, aboutMe, education, projects } from '../public/config'
-import { EducationEntryProps } from './components/education-entry'
 
 export default function Home() {
     const [show, setShow] = useState(0)
@@ -53,9 +52,6 @@ export default function Home() {
             entries={education.entries}
             style={education.colors }
           />
-          <section className='pt-10 text-4xl' id='experience'>
-            EXPERIENCE
-          </section>
           <Project 
             entries={projects.entries}
           />

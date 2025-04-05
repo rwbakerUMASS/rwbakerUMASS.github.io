@@ -1,3 +1,28 @@
+const navBar = {
+    menuItems: [
+        {
+            name: "About",
+            href: "#about"
+        },
+        {
+            name: 'Education',
+            href: '#education'
+        },
+        {
+            name: "Projects",
+            href: "#projects"
+        },
+        {
+            name: "GitHub",
+            href: "https://github.com/rwbakerUMASS"
+        },
+        {
+            name: "LinkedIn",
+            href: "https://linkedin.com/in/rwbaker16"
+        }
+    ]
+}
+
 const welcomePage = {
     topText: {
         color: 'text-white-500',
@@ -96,4 +121,4 @@ const projects = {
     ]
 }
 
-export { welcomePage, aboutMe, education, projects };
+export { navBar, welcomePage, aboutMe, education, projects };

@@ -3,11 +3,11 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import './navbar.css'
-// import Logo from "./Logo";
-// import Button from "./Button";
+import { navBar } from "@/public/config";
 
 const Navbar = () => {
   const [show, setShow] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
   const controlNavbar = () => {
       if (window.scrollY > 30 ) {
           setShow(true)
@@ -27,32 +27,56 @@ const Navbar = () => {
       <div className={'z-50 w-full h-20 fixed top-0 transition duration-500 ease-in-out'} style={{background: show ? 'rgba(244, 98, 58, 0.9)' : 'rgba(244, 98, 58, 0)'}}>
         <div className="container mx-auto px-4 h-full">
           <div className="flex justify-between items-center h-full">
-            <div className="text-white text-3xl font-extrabold px-8">Ryan Baker</div>
-            <ul className="hidden md:flex gap-x-6 text-white pr-8">
-              <li>
-                <Link href="#about">
-                  <p>About</p>
-                </Link>
-              </li>
-              <li>
-                <Link href="#education">
-                  <p>Education</p>
-                </Link>
-              </li>
-              <li>
-                <Link href="#experience">
-                  <p>Experience</p>
-                </Link>
-              </li>
-              <li>
-                <Link href="#contacts">
-                  <p>Contact Me</p>
-                </Link>
-              </li>
+            <div className="text-white text-3xl font-extrabold px-8" ><Link href="/">Ryan Baker</Link></div>
+            <ul className="hidden md:flex space-x-6 text-white">
+              {navBar.menuItems.map((x) => {return <li key={x.name}><Link href={x.href}>{x.name}</Link></li>})}
             </ul>
-            {/* <Button /> */}
+            <div className="md:hidden">
+                <button
+                onClick={() => setMenuOpen(!menuOpen)}
+                className="text-white focus:outline-none"
+                aria-label="Toggle menu"
+              >
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  {menuOpen ? (
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  ) : (
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 6h16M4 12h16M4 18h16"
+                    />
+                  )}
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
+        {menuOpen ? 
+          <div className="md:hidden w-full pb-4 transition duration-500 ease-in-out" style={{background: show ? 'rgba(244, 98, 58, 0.9)' : 'rgba(244, 98, 58, 0)'}}>
+            <div className="flex flex-col px-4 space-y-4 text-white">
+              {navBar.menuItems.map((x) => {
+                return <Link 
+                  key={x.name}
+                  href={x.href}
+                  onClick={() => setMenuOpen(!menuOpen)}>
+                    {x.name}
+                  </Link>
+                })}
+            </div>
+          </div>:null}
       </div>
     </>
   );

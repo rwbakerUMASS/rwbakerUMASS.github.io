@@ -27,16 +27,16 @@ const WelcomePage: React.FC<WelcomePageProps> = ({ topTextColor, topMessage, typ
     <>
     <div style={{backgroundColor: `rgba(212, 212, 212, ${show})`}} id='home'>
       <div className='h-screen w-screen flex items-center'>
-        <div className='block px-10'>
-          <p className={`inline-block text-6xl sticky font-bold ${topTextColor} text-center bg-white bg-opacity-25`}>{topMessage}</p>
+        <div className='block px-5 md:px-10'>
+          <p className={`inline-block sticky font-bold ${topTextColor} text-center bg-white bg-opacity-25 text-4xl md:text-6xl `}>{topMessage}</p>
           <div className='w-screen'/>
           <Typewriter
           options={{
             autoStart: true,
             loop: true,
             strings: typewriterMessages,
-            wrapperClassName: `inline-block text-5xl ${typewriterColor} bg-white bg-opacity-25`,
-            cursorClassName: 'text-5xl'
+            wrapperClassName: `inline-block ${typewriterColor} bg-white bg-opacity-25 text-3xl md:text-5xl`,
+            cursorClassName: 'text-3xl md:text-5xl'
           }}/>
         </div>
       </div>

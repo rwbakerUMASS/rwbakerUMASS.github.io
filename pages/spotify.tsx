@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 import { json } from 'stream/consumers';
 import {sha256} from 'js-sha256'
 
-export default function spotify() {
+export default function Spotify() {
 
   const getSpotifyData_url = process.env.NEXT_PUBLIC_SPOTIFY_API
   

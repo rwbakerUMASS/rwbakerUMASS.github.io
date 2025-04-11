@@ -7,11 +7,17 @@ import React, { useEffect, useState } from "react";
 import { json } from 'stream/consumers';
 import {sha256} from 'js-sha256'
 
+interface Track {
+  title: string,
+  artist: string,
+  img_url: string
+}
+
 export default function Spotify() {
 
   const getSpotifyData_url = process.env.NEXT_PUBLIC_SPOTIFY_API
   
-  const [myTracks, setTracks] = useState([]);
+  const [myTracks, setTracks] = useState<Track[]>([]);
   const [type, setType] = useState('tracks');
   const [time_range, setTime] = useState('medium_term');
   const [limit, setLimit] = useState(48);
@@ -21,16 +27,17 @@ export default function Spotify() {
   const fetchSpotifyData = () => {
     setTracks([]);
     setIsLoading(true)
-    const tmpTracks = [];
+    const tmpTracks: Track[] = [];
     const query = `?type=${type}&time_range=${time_range}&limit=${limit}`;
     fetch(getSpotifyData_url+query).then((resp) => {
       resp.json().then((tracks) => {
         console.log(tracks)
-        tracks.items.forEach((x) => {
-          const tmp = {};
-          tmp['title'] = x.name;
-          tmp['artist'] = x.artists[0].name;
-          tmp['img_url'] = x.album.images[0].url;
+        tracks.items.forEach((x: any) => {
+          const tmp:Track = {
+            title:x.name,
+            artist: x.artists[0].name,
+            img_url: x.album.images[0].url
+          };
           tmpTracks.push(tmp);
         })
         setTracks(tmpTracks);

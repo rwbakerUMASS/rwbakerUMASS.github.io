@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import Image from 'next/image';
+import { sha256 } from "js-sha256";
 
 interface SeedTrack {
   track: string,
@@ -57,7 +58,9 @@ const SpotifyCard: React.FC<SpotifyCardProps> = ({title, artist, img_url, score,
       <br/>
       {open ? <div className="mt-5 font-normal">
         {seed_tracks.sort((a,b) => (b.score-a.score)).map((x) => {
-          return <div className="pt-3">
+          return <div 
+            key={sha256(JSON.stringify(x))}
+            className="pt-3">
             <div className="text-sm">{x.track+' '+x.artist}</div>
             <div className="text-xs">{'Similarity: '+Math.trunc(x.score*1000)/1000}</div>
           </div>

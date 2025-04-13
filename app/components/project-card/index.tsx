@@ -17,10 +17,11 @@ interface GitHubInfo {
 interface ProjectCardProps {
   title: string,
   description: string,
-  github: GitHubInfo
+  github: GitHubInfo | null
+  moreInfo: string | null
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({title, description, github}) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({title, description, github, moreInfo}) => {
   const [languages, setLanguages] = useState<{[key: string]: number}>({});
   //const [total, setTotal] = useState(0);
   const fetchLanguages = () => {
@@ -74,31 +75,33 @@ const ProjectCard: React.FC<ProjectCardProps> = ({title, description, github}) =
         <Card.Text className="text-black pb-5">
           {description}
         </Card.Text>
-        {github ? <GitHubButton url={github.githubLink}/> : null}
-        <div className="mt-4">
-          <h3 className="text-black text-sm font-semibold mb-2">Languages Used:</h3>
-          <div className="w-full bg-gray-300 h-2 rounded-full overflow-hidden">
-          <div className="flex">
-          {github ? Object.keys(languages).map((lang) => {
-            return (
-                      <div
-                        key={lang}
-                        className={`h-2`}
-                        style={{ width: `${getPercent(lang)}`, backgroundColor: getLanguageColor(lang) }}
-                      />
-                    )}): null}
+        {github ? <div>
+          <GitHubButton url={github.githubLink}/>
+          <div className="mt-4">
+            <h3 className="text-black text-sm font-semibold mb-2">Languages Used:</h3>
+            <div className="w-full bg-gray-300 h-2 rounded-full overflow-hidden">
+            <div className="flex">
+            {Object.keys(languages).map((lang) => {
+              return (
+                        <div
+                          key={lang}
+                          className={`h-2`}
+                          style={{ width: `${getPercent(lang)}`, backgroundColor: getLanguageColor(lang) }}
+                        />
+                      )})}
+                </div>
+              </div>
+              <div className="flex flex-wrap mt-2 gap-2">
+                {github ? Object.keys(languages).map((lang) => {
+                  return (
+                  <span key={lang} className="text-xs bg-gray-100 text-black px-2 py-1 rounded-md">
+                    {lang}: {getPercent(lang)}
+                  </span>
+                )}): null}
               </div>
             </div>
-            <div className="flex flex-wrap mt-2 gap-2">
-              {github ? Object.keys(languages).map((lang) => {
-                return (
-                <span key={lang} className="text-xs bg-gray-100 text-black px-2 py-1 rounded-md">
-                  {lang}: {getPercent(lang)}
-                </span>
-              )}): null}
-            </div>
-          </div>
-        <OtherButton url={''}/>
+          </div> : null}
+        {moreInfo ? <OtherButton url={moreInfo}/> : null}
       </Card.Body>
     </Card>
   );

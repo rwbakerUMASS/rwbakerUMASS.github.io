@@ -102,7 +102,8 @@ const projects = {
                 owner: 'rwbakerUMASS',
                 repo: 'IMU-To-MOCAP',
                 githubLink: 'https://github.com/rwbakerUMASS/IMU-To-MOCAP'
-            }
+            },
+            moreInfo:null
         },
         {
             title: 'Human Following Robot',
@@ -111,7 +112,8 @@ const projects = {
                 owner: 'rwbakerUMASS',
                 repo: '603-GP',
                 githubLink: 'https://github.com/rwbakerUMASS/603-GP'
-            }
+            },
+            moreInfo:null
         },
         {
             title: 'Transfer Learning Leveraging Trajectory-Ranked Rewards',
@@ -120,7 +122,8 @@ const projects = {
                 owner: 'rwbakerUMASS',
                 repo: '690-Final-Project',
                 githubLink: 'https://github.com/rwbakerUMASS/690-Final-Project'
-            }
+            },
+            moreInfo:null
         },
         {
             title: 'Image Super-Resolution',
@@ -129,7 +132,8 @@ const projects = {
                 owner: 'rwbakerUMASS',
                 repo: 'Image-Super-Res',
                 githubLink: 'https://github.com/rwbakerUMASS/Image-Super-Res'
-            }
+            },
+            moreInfo:null
         },
         {
             title: 'This Website!',
@@ -138,7 +142,14 @@ const projects = {
                 owner: 'rwbakerUMASS',
                 repo: 'rwbakerUMASS.github.io',
                 githubLink: 'https://github.com/rwbakerUMASS/rwbakerUMASS.github.io'
-            }
+            },
+            moreInfo:null
+        },
+        {
+            title: 'Spotify Recommender',
+            description: 'Recommends tracks from my top tracks that may match your music taste',
+            github: null,
+            moreInfo: '/spotify'
         }
     ]
 }

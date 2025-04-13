@@ -11,7 +11,7 @@ import { useSession } from "next-auth/react";
 import { signIn, signOut } from "next-auth/react";
 
 interface SeedTrack {
-  title: string,
+  track: string,
   artist: string,
   score: number
 }

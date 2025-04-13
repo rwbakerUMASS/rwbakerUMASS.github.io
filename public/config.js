@@ -6,35 +6,40 @@ const navBar = {
             name: "About",
             button: {
                 internal: true,
-                path: "about"
+                path: "about",
+                page: "/"
             }
         },
         {
             name: 'Education',
             button: {
                 internal: true,
-                path: "education"
+                path: "education",
+                page: "/"
             }
         },
         {
             name: "Projects",
             button: {
                 internal: true,
-                path: "projects"
+                path: "projects",
+                page: "/"
             }
         },
         {
             name: "GitHub",
             button: {
                 internal: false,
-                path: "https://github.com/rwbakerUMASS"
+                path: "https://github.com/rwbakerUMASS",
+                page: null
             }
         },
         {
             name: "LinkedIn",
             button: {
                 internal: false,
-                path: "https://linkedin.com/in/rwbaker16"
+                path: "https://linkedin.com/in/rwbaker16",
+                page: null
             }
         }
     ]

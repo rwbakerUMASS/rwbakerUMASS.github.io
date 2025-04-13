@@ -6,6 +6,9 @@ import SpotifyCard from '@/app/components/spotify-card';
 import React, { useEffect, useState } from "react";
 import { json } from 'stream/consumers';
 import {sha256} from 'js-sha256'
+import AuthProvider from "@/app/components/AuthProvider";
+import { useSession } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 
 interface Track {
   title: string,
@@ -13,7 +16,7 @@ interface Track {
   img_url: string
 }
 
-export default function Spotify() {
+function Spotify() {
 
   const getSpotifyData_url = process.env.NEXT_PUBLIC_SPOTIFY_API
   
@@ -22,6 +25,7 @@ export default function Spotify() {
   const [time_range, setTime] = useState('medium_term');
   const [limit, setLimit] = useState(48);
   const [isLoading, setIsLoading] = useState(true);
+  const {data: session, status } = useSession();
 
 
   const fetchSpotifyData = () => {
@@ -31,7 +35,6 @@ export default function Spotify() {
     const query = `?type=${type}&time_range=${time_range}&limit=${limit}`;
     fetch(getSpotifyData_url+query).then((resp) => {
       resp.json().then((tracks) => {
-        console.log(tracks)
         tracks.items.forEach((x: any) => {
           const tmp:Track = {
             title:x.name,
@@ -49,47 +52,69 @@ export default function Spotify() {
   useEffect(() => {
       fetchSpotifyData();
   }, [type,time_range,limit])
-  
-  return (
-    <main className="min-h-screen bg-black text-white">
-      <Navbar />
-      
-      <div className="pt-20" />
+  if (session) {
+    console.log(session)
+    return (
+      <main className="min-h-screen bg-black text-white">
+        <Navbar />
+        
+        <div className="pt-20" />
 
-      {/* Button Section */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 px-4 sm:px-8 md:px-20 mb-10">
-        {["short_term", "medium_term", "long_term"].map((range) => (
-          <button
-            key={range}
-            onClick={() => setTime(range)}
-            className="border-white border rounded-xl text-white text-sm py-2 px-4 w-full"
-          >
-            {range.replace("_", " ").replace(/\b\w/g, c => c.toUpperCase())}
-          </button>
-        ))}
-        <button className="border-white border rounded-xl text-white text-sm py-2 px-4 w-full">
-          More Info
-        </button>
-        <button className="border-white border rounded-xl text-white text-sm py-2 px-4 w-full">
-          More Info
-        </button>
-      </div>
-
-      {/* Card Grid */}
-      {isLoading ? (
-        <p className="text-center text-white">Loading...</p>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4 sm:px-8 md:px-20 pb-20">
-          {myTracks.map((x) => (
-            <SpotifyCard
-              key={sha256(JSON.stringify(x))}
-              title={x.title}
-              artist={x.artist}
-              img_url={x.img_url}
-            />
+        {/* Button Section */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 px-4 sm:px-8 md:px-20 mb-10">
+          {["short_term", "medium_term", "long_term"].map((range) => (
+            <button
+              key={range}
+              onClick={() => setTime(range)}
+              className="border-white border rounded-xl text-white text-sm py-2 px-4 w-full"
+            >
+              {range.replace("_", " ").replace(/\b\w/g, c => c.toUpperCase())}
+            </button>
           ))}
+          <button 
+            onClick={() => signOut()}
+            className="border-white border rounded-xl text-white text-sm py-2 px-4 w-full">
+            More Info
+          </button>
+          <button className="border-white border rounded-xl text-white text-sm py-2 px-4 w-full">
+            More Info
+          </button>
         </div>
-      )}
-    </main>
-  )
+
+        {/* Card Grid */}
+        <AuthProvider>
+        {isLoading ? (
+          <p className="text-center text-white">Loading...</p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4 sm:px-8 md:px-20 pb-20">
+            {myTracks.map((x) => (
+              <SpotifyCard
+                key={sha256(JSON.stringify(x))}
+                title={x.title}
+                artist={x.artist}
+                img_url={x.img_url}
+              />
+            ))}
+          </div>
+        )}
+        </AuthProvider>
+      </main>
+  )} else {
+    return (
+      <button
+        onClick={() => signIn("spotify")}
+        className="w-56 h-16 bg-gradient-to-r from-orange-500 via-orange-600 to-orange-700 text-white text-3xl rounded-xl shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-2xl active:scale-[0.98] m-6 border-2 border-orange-800"
+      >
+        Sign In
+      </button>
+      )
+  }
+}
+
+export default function SpotifyPageWrapper(props: any) {
+  return (
+    <AuthProvider>
+      <Spotify />
+    </AuthProvider>
+  );
 }

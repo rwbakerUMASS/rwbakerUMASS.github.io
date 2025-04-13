@@ -32,7 +32,8 @@ function Spotify() {
     setTracks([]);
     setIsLoading(true)
     const tmpTracks: Track[] = [];
-    const query = `?type=${type}&time_range=${time_range}&limit=${limit}`;
+    const query = `?auth=${session.token.access_token}&type=${type}&time_range=${time_range}&limit=${limit}`;
+    console.log(query)
     fetch(getSpotifyData_url+query).then((resp) => {
       resp.json().then((tracks) => {
         tracks.items.forEach((x: any) => {
@@ -50,15 +51,14 @@ function Spotify() {
   };
 
   useEffect(() => {
-      fetchSpotifyData();
-  }, [type,time_range,limit])
+      if(session){
+        fetchSpotifyData();
+      }
+  }, [type,time_range,limit, session])
   if (session) {
     console.log(session)
     return (
       <main className="min-h-screen bg-black text-white">
-        <Navbar />
-        
-        <div className="pt-20" />
 
         {/* Button Section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 px-4 sm:px-8 md:px-20 mb-10">
@@ -71,22 +71,19 @@ function Spotify() {
               {range.replace("_", " ").replace(/\b\w/g, c => c.toUpperCase())}
             </button>
           ))}
+          <div></div>
           <button 
             onClick={() => signOut()}
             className="border-white border rounded-xl text-white text-sm py-2 px-4 w-full">
-            More Info
-          </button>
-          <button className="border-white border rounded-xl text-white text-sm py-2 px-4 w-full">
-            More Info
+            Sign Out
           </button>
         </div>
 
         {/* Card Grid */}
-        <AuthProvider>
         {isLoading ? (
           <p className="text-center text-white">Loading...</p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4 sm:px-8 md:px-20 pb-20">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 px-4 sm:px-8 md:px-20 pb-20">
             {myTracks.map((x) => (
               <SpotifyCard
                 key={sha256(JSON.stringify(x))}
@@ -97,7 +94,6 @@ function Spotify() {
             ))}
           </div>
         )}
-        </AuthProvider>
       </main>
   )} else {
     return (
@@ -113,8 +109,12 @@ function Spotify() {
 
 export default function SpotifyPageWrapper(props: any) {
   return (
+    <>
+    <Navbar />
     <AuthProvider>
+      <div className="pt-20" />
       <Spotify />
     </AuthProvider>
+    </>
   );
 }

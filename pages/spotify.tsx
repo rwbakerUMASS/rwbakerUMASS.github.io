@@ -10,17 +10,25 @@ import AuthProvider from "@/app/components/AuthProvider";
 import { useSession } from "next-auth/react";
 import { signIn, signOut } from "next-auth/react";
 
-interface Track {
+interface SeedTrack {
   title: string,
   artist: string,
-  img_url: string
+  score: number
+}
+
+interface TrackRecommendation {
+  title: string,
+  artist: string,
+  img_url: string,
+  score: number,
+  seed_tracks: SeedTrack[]
 }
 
 function Spotify() {
 
   const getSpotifyData_url = process.env.NEXT_PUBLIC_SPOTIFY_API
   
-  const [myTracks, setTracks] = useState<Track[]>([]);
+  const [myTracks, setTracks] = useState<TrackRecommendation[]>([]);
   const [type, setType] = useState('tracks');
   const [time_range, setTime] = useState('medium_term');
   const [limit, setLimit] = useState(48);
@@ -31,23 +39,26 @@ function Spotify() {
   const fetchSpotifyData = () => {
     setTracks([]);
     setIsLoading(true)
-    const tmpTracks: Track[] = [];
-    const query = `?auth=${session.token.access_token}&type=${type}&time_range=${time_range}&limit=${limit}`;
+    const tmpTracks: TrackRecommendation[] = [];
+    const query = `?auth=${session?.token?.access_token}&type=${type}&time_range=${time_range}&limit=${limit}`;
     console.log(query)
     fetch(getSpotifyData_url+query).then((resp) => {
       resp.json().then((tracks) => {
-        tracks.items.forEach((x: any) => {
-          const tmp:Track = {
-            title:x.name,
-            artist: x.artists[0].name,
-            img_url: x.album.images[0].url
+        console.log(tracks)
+        tracks.forEach((x: any) => {
+          const tmp:TrackRecommendation = {
+            title:x.track,
+            artist: x.artist,
+            img_url: x.img_url,
+            score:x.score,
+            seed_tracks:x.seed_tracks
           };
           tmpTracks.push(tmp);
         })
         setTracks(tmpTracks);
         setIsLoading(false)
-      })
-    })
+      }).catch()
+    }).catch()
   };
 
   useEffect(() => {
@@ -66,7 +77,7 @@ function Spotify() {
             <button
               key={range}
               onClick={() => setTime(range)}
-              className="border-white border rounded-xl text-white text-sm py-2 px-4 w-full"
+              className={range == time_range ? "border-white border rounded-xl bg-white bg-opacity-30 text-white text-sm py-2 px-4 w-full" : "border-white border rounded-xl text-white text-sm py-2 px-4 w-full"}
             >
               {range.replace("_", " ").replace(/\b\w/g, c => c.toUpperCase())}
             </button>
@@ -84,12 +95,16 @@ function Spotify() {
           <p className="text-center text-white">Loading...</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 px-4 sm:px-8 md:px-20 pb-20">
-            {myTracks.map((x) => (
+            {myTracks.sort((a,b) => {
+              return b.seed_tracks.length - a.seed_tracks.length;
+            }).map((x) => (
               <SpotifyCard
                 key={sha256(JSON.stringify(x))}
                 title={x.title}
                 artist={x.artist}
                 img_url={x.img_url}
+                score={x.score}
+                seed_tracks={x.seed_tracks}
               />
             ))}
           </div>

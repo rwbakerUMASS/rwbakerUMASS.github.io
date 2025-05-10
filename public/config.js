@@ -134,6 +134,15 @@ const projects = {
                 repo: 'rwbakerUMASS.github.io',
                 githubLink: 'https://github.com/rwbakerUMASS/rwbakerUMASS.github.io'
             }
+        },
+        {
+            title: 'ChessPP',
+            description: 'Chess Engine written in C++, current work in progress',
+            github: {
+                owner: 'rwbakerUMASS',
+                repo: 'ChessPP',
+                githubLink: 'https://github.com/rwbakerUMASS/ChessPP'
+            }
         }
     ]
 }

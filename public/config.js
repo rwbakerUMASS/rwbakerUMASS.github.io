@@ -36,6 +36,13 @@ const navBar = {
                 internal: false,
                 path: "https://linkedin.com/in/rwbaker16"
             }
+        },
+        {
+            name: "Bay Statle",
+            button: {
+                internal: false,
+                path: "massdle"
+            }
         }
     ]
 }

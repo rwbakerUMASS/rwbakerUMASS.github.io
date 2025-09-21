@@ -124,6 +124,12 @@ function App() {
     setGuessList([]);
   }
 
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setGuess(val);
+    setValidGuess(towns.some(t => t.name.toLowerCase() === val.toLowerCase()));
+  }
+
   const handleGuess = () => {
     if (!answer) return;
     const town = towns.find(t => t.name.toLowerCase() === guess.toLowerCase());
@@ -188,11 +194,7 @@ function App() {
                 ? 'border-green-500 focus:ring-2 focus:ring-green-300' 
                 : 'border-red-300 focus:ring-2 focus:ring-red-200'}
                 ${shake ? 'shake' : ''}`}
-            onChange={(e) => {
-              const val = e.target.value;
-              setGuess(val);
-              setValidGuess(towns.some(t => t.name.toLowerCase() === val.toLowerCase()));
-            }}
+            onChange={handleInput}
             onKeyDown={(e) => {
               if (e.key === 'Enter') handleGuess();
             }}

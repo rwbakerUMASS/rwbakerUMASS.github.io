@@ -204,7 +204,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-100 to-blue-50 p-6 font-sans">
-      <div className="max-w-xl mx-auto bg-white shadow-xl rounded-lg p-8 space-y-6">
+      <div className="max-w-2xl mx-auto bg-white shadow-xl rounded-lg p-8 space-y-6">
         <div className="relative flex items-center justify-center">
           {/* Decorative Massachusetts SVG */}
           <img
@@ -265,45 +265,44 @@ function App() {
         <div className="mt-6">
           {guessList.length > 0 ? <h2 className="text-lg text-black font-bold mb-2">Your Guesses</h2> : ''}
           {[...guessList].reverse().map((g, i) => (
-            <div key={i} className="flex gap-2 items-center">
-
-              {/* Name */}
-              <div className="flex items-center justify-center w-32 h-10 text-sm font-bold text-black truncate">
+            <div key ={i} className="flex flex-col sm:flex-row gap-2 items-center">
+              <div className="w-full sm:w-32 text-center font-bold text-black truncate">
                 {g.name}
               </div>
+              <div className='grid gap-2  grid-cols-2 sm:grid-cols-4'>
+                {/* Population */}
+                <div className={`flex flex-col items-center justify-center w-30 h-20 text-white font-semibold rounded text-center
+                  ${g.pop.correct ? 'bg-green-500' : g.pop.close ? 'bg-yellow-400' : 'bg-gray-300'}`}>
+                  <span className="text-xs leading-tight">Population:</span>
+                  <span className="truncate">{g.pop.val.toLocaleString()}</span>
+                  {g.pop.val > answer!.population && !g.pop.correct && <ChevronDown />}
+                  {g.pop.val < answer!.population && !g.pop.correct && <ChevronUp />}
+                </div>
 
-              {/* Population */}
-              <div className={`flex flex-col items-center justify-center w-32 h-20 text-white font-semibold rounded text-center
-                ${g.pop.correct ? 'bg-green-500' : g.pop.close ? 'bg-yellow-400' : 'bg-gray-300'}`}>
-                <span className="text-xs leading-tight">Population:</span>
-                <span className="truncate">{g.pop.val.toLocaleString()}</span>
-                {g.pop.val > answer!.population && !g.pop.correct && <ChevronDown />}
-                {g.pop.val < answer!.population && !g.pop.correct && <ChevronUp />}
-              </div>
+                {/* Distance */}
+                <div className={`flex flex-col items-center justify-center w-30 h-20 text-white font-semibold rounded text-center
+                  ${g.dist.correct ? 'bg-green-500' : g.dist.close ? 'bg-yellow-400' : 'bg-gray-300'}`}>
+                  <span className="text-xs leading-tight">Distance to Boston:</span>
+                  <span className="truncate">{g.dist.val}</span>
+                  {g.dist.val > answer!.distance && !g.dist.correct && <ChevronDown />}
+                  {g.dist.val < answer!.distance && !g.dist.correct && <ChevronUp />}
+                </div>
 
-              {/* Distance */}
-              <div className={`flex flex-col items-center justify-center w-32 h-20 text-white font-semibold rounded text-center
-                ${g.dist.correct ? 'bg-green-500' : g.dist.close ? 'bg-yellow-400' : 'bg-gray-300'}`}>
-                <span className="text-xs leading-tight">Distance to Boston:</span>
-                <span className="truncate">{g.dist.val}</span>
-                {g.dist.val > answer!.distance && !g.dist.correct && <ChevronDown />}
-                {g.dist.val < answer!.distance && !g.dist.correct && <ChevronUp />}
-              </div>
+                {/* Dunks */}
+                <div className={`flex flex-col items-center justify-center w-30 h-20 text-white font-semibold rounded text-center
+                  ${g.dunks.correct ? 'bg-green-500' : g.dunks.close ? 'bg-yellow-400' : 'bg-gray-300'}`}>
+                  <span className="text-xs leading-tight"># of Dunks:</span>
+                  <span className="truncate">{g.dunks.val}</span>
+                  {g.dunks.val > answer!.count && !g.dunks.correct && <ChevronDown />}
+                  {g.dunks.val < answer!.count && !g.dunks.correct && <ChevronUp />}
+                </div>
 
-              {/* Dunks */}
-              <div className={`flex flex-col items-center justify-center w-32 h-20 text-white font-semibold rounded text-center
-                ${g.dunks.correct ? 'bg-green-500' : g.dunks.close ? 'bg-yellow-400' : 'bg-gray-300'}`}>
-                <span className="text-xs leading-tight"># of Dunks:</span>
-                <span className="truncate">{g.dunks.val}</span>
-                {g.dunks.val > answer!.count && !g.dunks.correct && <ChevronDown />}
-                {g.dunks.val < answer!.count && !g.dunks.correct && <ChevronUp />}
-              </div>
-
-              {/* County */}
-              <div className={`flex flex-col items-center justify-center w-32 h-20 text-white font-semibold rounded text-center
-                ${g.county.correct ? 'bg-green-500' : g.county.close ? 'bg-yellow-400' : 'bg-gray-300'}`}>
-                <span className="text-xs leading-tight">County:</span>
-                <span className="truncate">{g.county.val}</span>
+                {/* County */}
+                <div className={`flex flex-col items-center justify-center w-30 h-20 text-white font-semibold rounded text-center
+                  ${g.county.correct ? 'bg-green-500' : g.county.close ? 'bg-yellow-400' : 'bg-gray-300'}`}>
+                  <span className="text-xs leading-tight">County:</span>
+                  <span className="truncate">{g.county.val}</span>
+                </div>
               </div>
 
             </div>

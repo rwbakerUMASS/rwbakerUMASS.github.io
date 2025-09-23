@@ -84,6 +84,9 @@ function App() {
   const [validGuess, setValidGuess] = useState<boolean>(false);
   const [shake, setShake] = useState<boolean>(false);
   const [guessList, setGuessList] = useState<Guess[]>([]);
+  const [filteredSuggestions, setFilteredSuggestions] = useState<Town[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [gameOver, setGameOver] = useState(false);
 
   // Load CSV on component mount
   useEffect(() => {
@@ -122,7 +125,32 @@ function App() {
     console.log(randomIndex)
     setAnswer(towns[randomIndex]);
     setGuessList([]);
+    setGameOver(false);
   }
+
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setGuess(val);
+
+    if (val.length > 0) {
+      const matches = towns.filter(t =>
+        t.name.toLowerCase().startsWith(val.toLowerCase())
+      );
+      setFilteredSuggestions(matches);
+      setShowSuggestions(true);
+    } else {
+      setFilteredSuggestions([]);
+      setShowSuggestions(false);
+    }
+
+    setValidGuess(towns.some(t => t.name.toLowerCase() === val.toLowerCase()));
+  };
+
+  const handleSelectSuggestion = (townName: string) => {
+    setGuess(townName);
+    setValidGuess(true);
+    setShowSuggestions(false);
+  };
 
   const handleGuess = () => {
     if (!answer) return;
@@ -131,13 +159,14 @@ function App() {
       setShake(true);
       setTimeout(() => setShake(false), 400); // Remove class after animation
     } else {
+      if (town.name.toLowerCase() === answer.name.toLowerCase()) setGameOver(true);
       setGuess('');
       setValidGuess(false);
       const newGuess : Guess = {
         'name':town.name,
         'pop':{
           'val':town.population,
-          'close':Math.abs(town.population-answer.population) < 1000,
+          'close':Math.abs(town.population-answer.population) < 2500,
           'correct':town.population === answer.population
         },
         'county':{
@@ -175,28 +204,55 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-100 to-blue-50 p-6 font-sans">
-      <div className="max-w-xl mx-auto bg-white shadow-xl rounded-lg p-8 space-y-6">
-        <h1 className="text-2xl font-bold text-center text-blue-800">Bay Statle</h1>
+      <div className="max-w-2xl mx-auto bg-white shadow-xl rounded-lg p-8 space-y-6">
+        <div className="relative flex items-center justify-center">
+          {/* Decorative Massachusetts SVG */}
+          <img
+            src="https://worldpopulationreview.com/images/state-outlines/ma/outline-ma-1400w.png"
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 w-[25%] opacity-30 h-auto mx-auto pointer-events-none select-none"
+            style={{ filter: 'grayscale(100%)', mixBlendMode: 'multiply' }}
+          />
+          
+          <h1 className="text-4xl font-bold text-center text-blue-800 relative z-10">
+            Bay Statle
+          </h1>
+        </div>
 
-        <div>
+        <div className="relative pt-10">
           <input
             type="text"
             value={guess}
+            disabled={gameOver}
             placeholder="Enter town name"
             className={`w-full p-3 rounded-md border-2 text-lg text-black transition focus:outline-none 
               ${validGuess 
                 ? 'border-green-500 focus:ring-2 focus:ring-green-300' 
                 : 'border-red-300 focus:ring-2 focus:ring-red-200'}
                 ${shake ? 'shake' : ''}`}
-            onChange={(e) => {
-              const val = e.target.value;
-              setGuess(val);
-              setValidGuess(towns.some(t => t.name.toLowerCase() === val.toLowerCase()));
-            }}
+            onChange={handleInput}
             onKeyDown={(e) => {
               if (e.key === 'Enter') handleGuess();
             }}
+            onFocus={() => {
+              if (filteredSuggestions.length > 0) setShowSuggestions(true);
+            }}
           />
+
+          {showSuggestions && filteredSuggestions.length > 0 && (
+            <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded-md shadow-md max-h-48 overflow-y-auto">
+              {filteredSuggestions.map((t, idx) => (
+                <li
+                  key={idx}
+                  className="px-3 py-2 cursor-pointer hover:bg-blue-100 text-black"
+                  onClick={() => handleSelectSuggestion(t.name)}
+                >
+                  {t.name}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
         <button
@@ -207,47 +263,46 @@ function App() {
         </button>
 
         <div className="mt-6">
-          <h2 className="text-lg text-black font-bold mb-2">Your Guesses</h2>
+          {guessList.length > 0 ? <h2 className="text-lg text-black font-bold mb-2">Your Guesses</h2> : ''}
           {[...guessList].reverse().map((g, i) => (
-            <div key={i} className="flex gap-2 items-center">
-
-              {/* Name */}
-              <div className="flex items-center justify-center w-32 h-10 text-sm font-bold text-black truncate">
+            <div key ={i} className="flex flex-col sm:flex-row gap-2 items-center">
+              <div className="w-full sm:w-32 text-center font-bold text-black truncate">
                 {g.name}
               </div>
+              <div className='grid gap-2  grid-cols-2 sm:grid-cols-4'>
+                {/* Population */}
+                <div className={`flex flex-col items-center justify-center w-30 h-20 text-white font-semibold rounded text-center
+                  ${g.pop.correct ? 'bg-green-500' : g.pop.close ? 'bg-yellow-400' : 'bg-gray-300'}`}>
+                  <span className="text-xs leading-tight">Population:</span>
+                  <span className="truncate">{g.pop.val.toLocaleString()}</span>
+                  {g.pop.val > answer!.population && !g.pop.correct && <ChevronDown />}
+                  {g.pop.val < answer!.population && !g.pop.correct && <ChevronUp />}
+                </div>
 
-              {/* Population */}
-              <div className={`flex flex-col items-center justify-center w-32 h-20 text-white font-semibold rounded text-center
-                ${g.pop.correct ? 'bg-green-500' : g.pop.close ? 'bg-yellow-400' : 'bg-gray-300'}`}>
-                <span className="text-xs leading-tight">Population:</span>
-                <span className="truncate">{g.pop.val.toLocaleString()}</span>
-                {g.pop.val > answer!.population && !g.pop.correct && <ChevronDown />}
-                {g.pop.val < answer!.population && !g.pop.correct && <ChevronUp />}
-              </div>
+                {/* Distance */}
+                <div className={`flex flex-col items-center justify-center w-30 h-20 text-white font-semibold rounded text-center
+                  ${g.dist.correct ? 'bg-green-500' : g.dist.close ? 'bg-yellow-400' : 'bg-gray-300'}`}>
+                  <span className="text-xs leading-tight">Distance to Boston:</span>
+                  <span className="truncate">{g.dist.val}</span>
+                  {g.dist.val > answer!.distance && !g.dist.correct && <ChevronDown />}
+                  {g.dist.val < answer!.distance && !g.dist.correct && <ChevronUp />}
+                </div>
 
-              {/* Distance */}
-              <div className={`flex flex-col items-center justify-center w-32 h-20 text-white font-semibold rounded text-center
-                ${g.dist.correct ? 'bg-green-500' : g.dist.close ? 'bg-yellow-400' : 'bg-gray-300'}`}>
-                <span className="text-xs leading-tight">Distance to Boston:</span>
-                <span className="truncate">{g.dist.val}</span>
-                {g.dist.val > answer!.distance && !g.dist.correct && <ChevronDown />}
-                {g.dist.val < answer!.distance && !g.dist.correct && <ChevronUp />}
-              </div>
+                {/* Dunks */}
+                <div className={`flex flex-col items-center justify-center w-30 h-20 text-white font-semibold rounded text-center
+                  ${g.dunks.correct ? 'bg-green-500' : g.dunks.close ? 'bg-yellow-400' : 'bg-gray-300'}`}>
+                  <span className="text-xs leading-tight"># of Dunks:</span>
+                  <span className="truncate">{g.dunks.val}</span>
+                  {g.dunks.val > answer!.count && !g.dunks.correct && <ChevronDown />}
+                  {g.dunks.val < answer!.count && !g.dunks.correct && <ChevronUp />}
+                </div>
 
-              {/* Dunks */}
-              <div className={`flex flex-col items-center justify-center w-32 h-20 text-white font-semibold rounded text-center
-                ${g.dunks.correct ? 'bg-green-500' : g.dunks.close ? 'bg-yellow-400' : 'bg-gray-300'}`}>
-                <span className="text-xs leading-tight"># of Dunks:</span>
-                <span className="truncate">{g.dunks.val}</span>
-                {g.dunks.val > answer!.count && !g.dunks.correct && <ChevronDown />}
-                {g.dunks.val < answer!.count && !g.dunks.correct && <ChevronUp />}
-              </div>
-
-              {/* County */}
-              <div className={`flex flex-col items-center justify-center w-32 h-20 text-white font-semibold rounded text-center
-                ${g.county.correct ? 'bg-green-500' : g.county.close ? 'bg-yellow-400' : 'bg-gray-300'}`}>
-                <span className="text-xs leading-tight">County:</span>
-                <span className="truncate">{g.county.val}</span>
+                {/* County */}
+                <div className={`flex flex-col items-center justify-center w-30 h-20 text-white font-semibold rounded text-center
+                  ${g.county.correct ? 'bg-green-500' : g.county.close ? 'bg-yellow-400' : 'bg-gray-300'}`}>
+                  <span className="text-xs leading-tight">County:</span>
+                  <span className="truncate">{g.county.val}</span>
+                </div>
               </div>
 
             </div>
@@ -255,13 +310,16 @@ function App() {
         </div>
         <button
           onClick={() => {
-            if(answer){
+            if(answer && !gameOver){
               setGuess(answer?.name);
+            }
+            if(gameOver){
+              pickAnswer();
             }
           }}
           className="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-md text-lg font-medium transition"
         >
-          Give Up?
+          {gameOver ? 'New Game' : 'Give Up?'}
         </button>
       </div>
     </div>

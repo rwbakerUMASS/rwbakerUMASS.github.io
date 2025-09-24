@@ -33,25 +33,23 @@ const About: React.FC<AboutPageProps> = ({ bodyText, bodyTextColor, imgPath}) =>
       }
   }, [])
   return (
-    <>
-      <section className="pt-10 text-lg scroll-mt-10" id="about">
-        <div className="p-5 md:p-20 text-2xl md:text-4xl flex justify-center w-full font-bold">
-          ABOUT ME
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 px-5 md:px-20 gap-5">
+    <section className="pt-10 text-lg scroll-mt-10" id="about">
+  <div className="mx-auto max-w-[90%] bg-white/90 rounded-2xl shadow-2xl p-10">
+        <div className="text-3xl md:text-5xl flex justify-center w-full font-extrabold mb-10 tracking-tight text-orange-700">ABOUT ME</div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
           <div className="w-full flex justify-center">
             <Image
               src={me_img.src}
-              width={300} // Set a fixed value for better mobile scaling
-              height={300}
+              width={320}
+              height={320}
               alt="Me"
-              className="rounded-xl border-2 border-black aspect-auto w-full max-w-xs sm:max-w-sm md:max-w-md"
+              className="rounded-xl border-2 border-black aspect-auto w-full max-w-xs sm:max-w-sm md:max-w-md shadow-lg"
             />
           </div>
-          <div className={`content-center ${bodyTextColor}`}>{bodyText}</div>
+          <div className={`content-center text-lg md:text-2xl font-medium leading-relaxed text-gray-900 bg-white/60 rounded-xl p-6 shadow-inner`} style={{wordBreak: 'break-word'}}>{bodyText}</div>
         </div>
-        </section>
-    </>
+      </div>
+    </section>
   );
 };
 

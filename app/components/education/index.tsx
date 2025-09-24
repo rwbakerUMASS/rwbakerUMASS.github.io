@@ -19,20 +19,22 @@ interface EducationPageProps {
 
 const Education: React.FC<EducationPageProps> = ({entries, style}) => {
   return (
-    <>
-      <section className='pt-10 text-lg scroll-mt-10' id='education'>
-        <div className='p-5 md:p-20 text-2xl md:text-4xl flex justify-center w-full font-bold'>
-          EDUCATION
-        </div>
-        <div className='justify-center grid grid-cols-1 md:grid-cols-2 gap-5 px-5 md:px-20 place-items-center'>
+    <section className="pt-10 text-lg scroll-mt-10" id="education">
+      <div className="mx-auto max-w-[90%] bg-white/90 rounded-2xl shadow-2xl p-10">
+        <div className="text-3xl md:text-5xl flex justify-center w-full font-extrabold mb-10 tracking-tight text-orange-700">EDUCATION</div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch place-items-center">
           {entries.map((entry, index) => {
             entry['key'] = index;
-            return EducationEntry(entry);
+            return (
+              <div className="p-6 mb-4 flex flex-col justify-between h-full">
+                {EducationEntry(entry)}
+              </div>
+            );
           })}
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
-};
+}
 
 export default Education;

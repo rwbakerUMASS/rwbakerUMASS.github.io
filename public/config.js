@@ -43,6 +43,13 @@ const navBar = {
                 internal: false,
                 path: "massdle"
             }
+        },
+        {
+            name: "Photography",
+            button: {
+                internal: false,
+                path: "photography"
+            }
         }
     ]
 }

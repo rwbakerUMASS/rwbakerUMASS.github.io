@@ -35,9 +35,13 @@ const About: React.FC<AboutPageProps> = ({ bodyText, bodyTextColor, imgPath}) =>
   return (
     <>
       <section className="pt-10 text-lg scroll-mt-10" id="about">
-        <div className="p-5 md:p-20 text-2xl md:text-4xl flex justify-center w-full font-bold">
-          ABOUT ME
+        <div className="w-full flex flex-col items-center mb-10">
+          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-neutral-900 dark:text-white">
+            ABOUT ME
+          </h2>
+          <div className="mt-2 h-1 w-16 bg-neutral-900 dark:bg-white rounded-full"></div>
         </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 px-5 md:px-20 gap-5">
           <div className="w-full flex justify-center">
             <Image
@@ -48,7 +52,14 @@ const About: React.FC<AboutPageProps> = ({ bodyText, bodyTextColor, imgPath}) =>
               className="rounded-xl border-2 border-black aspect-auto w-full max-w-xs sm:max-w-sm md:max-w-md"
             />
           </div>
-          <div className={`content-center ${bodyTextColor}`}>{bodyText}</div>
+          <div
+              className={`flex flex-col justify-center ${bodyTextColor} leading-relaxed text-base md:text-lg 
+                bg-white/40 dark:bg-neutral-800/40 backdrop-blur-sm p-6 rounded-xl shadow-md`}
+          >
+            <p className="whitespace-pre-line text-neutral-800 dark:text-neutral-200">
+              {bodyText}
+            </p>
+          </div>
         </div>
         </section>
     </>

@@ -65,9 +65,9 @@ const welcomePage = {
 
 const aboutMe = {
     bodyText: {
-        text: `I am a recent Master's graduate from the UMass Amherst College of Information and Computer Sciences.
-                Throughout my education, I have gained exposure to a large variety of fields of computer science, but I am mainly interested in the fields of machine/reinforcement learning, data science, and robotics
-                I have 4 years of experience in systems engineering and software engineering, as well as being the software lead of my high school robotics team.`,
+        text: `I'm a software engineer with a background in machine learning, data science, and robotics. I like working on projects that connect code to real-world behavior, whether that's translating IMU signals into motion capture data, building tools that make complex systems easier to test, or experimenting with new ways for robots to understand their environment.\n
+                My interest in engineering started early, leading the software side of my high school robotics team. Since then, I've worked across systems and software engineering while completing my B.S. and M.S. in Computer Science at UMass Amherst. I enjoy digging into tricky problems, understanding how systems fit together, and building things that make those systems more intuitive.\n
+                Outside of coding, I'm usually skiing, backpacking, taking photos, tinkering with my homelab, or following New England sports. I like learning new tools, exploring new ideas, and taking on projects that sit at the intersection of curiosity and technical problem solving.`,
         color: "text-white-500"
     },
     imagePath: "../public/assets/img/Ryan2.jpg"

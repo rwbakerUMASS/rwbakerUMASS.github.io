@@ -1,37 +1,41 @@
 'use client'
 
-import React, { useEffect, useState } from "react";
-import Typewriter from 'typewriter-effect'
-import Link from "next/link";
-import { trackSynchronousRequestDataAccessInDev } from "next/dist/server/app-render/dynamic-rendering";
-import { copyFileSync } from "fs";
+import React from "react";
 
 interface EducationEntryProps {
-  title: string,
-  university: string,
-  time: string,
-  gpa: number,
-  key: number
+  title: string;
+  university: string;
+  time: string;
+  gpa: number;
 }
 
-const EducationEntry: React.FC<EducationEntryProps> = ({ title, university, time, gpa, key}) => {
+const EducationEntry: React.FC<EducationEntryProps> = ({
+  title,
+  university,
+  time,
+  gpa
+}) => {
   return (
-      <div className='content-center text-center px-10 text-2xl' key={key}>
-        <div className="border-black border-2 rounded-xl w-auto w-fit p-3 shadow-xl bg-white text-black bg-opacity-30">
-        {title}
-        <div>
+    <div className="w-full max-w-lg" key={title}>
+      <div className="bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow">
+        
+        <h3 className="text-2xl font-semibold text-neutral-900 dark:text-white">
+          {title}
+        </h3>
+
+        <p className="text-lg text-neutral-700 dark:text-neutral-300 mt-1 font-medium">
           {university}
+        </p>
+
+        <div className="mt-4 text-sm text-neutral-600 dark:text-neutral-400 space-y-1">
+          <p>{time}</p>
+          <p className="font-semibold">GPA: {gpa}</p>
         </div>
-        <div>
-          {time}
-        </div>
-        <div>
-          {`GPA: ${gpa}`}
-        </div>
-        </div>
+
       </div>
+    </div>
   );
 };
 
 export default EducationEntry;
-export type { EducationEntryProps } ;
+export type { EducationEntryProps };
